@@ -1,0 +1,217 @@
+
+
+productos.forEach(p => {
+    const venta = {
+        codigo: p.codigo,
+        nombre: p.nombre,
+        cantidad: 1,
+        precio: p.precio,
+        total: p.precio
+    };   
+    carrito.push(venta);
+});
+
+const agregarProducto = (codigo) => {
+    carrito.forEach(c => {
+        if (codigo === c.codigo) {
+            tablaCarrito.innerHTML = '';
+            let tr = document.createElement('tr');
+
+            let preciototal = c.precio * c.cantidad;
+
+            let fila = `
+                <td>${c.codigo}</td>
+                <td>${c.nombre}</td>
+                <td>${c.cantidad++}</td>
+                <td>${c.precio}</td>
+                <td>${preciototal}</td>
+            `;
+            
+            tr.innerHTML = fila;
+            tablaCarrito.appendChild(tr);
+            
+        };
+        
+    });
+    console.log(carrito);
+}
+
+
+
+
+
+
+
+
+const agregarProducto = (codigo) => {   
+    
+    tablaCarrito.innerHTML = ''
+    productos.forEach(p => {
+        if (codigo === p.codigo) {
+
+            const venta = {
+                codigo: p.codigo,
+                nombre: p.nombre,
+                cantidad: 1,
+                precio: p.precio,
+                total: p.precio
+            };
+            
+            const findcode = carrito.find(f => f.codigo === codigo);
+
+            if (!findcode) {
+                console.log(`Codigo ${codigo} NO encontrado`);
+                carrito.push(venta); 
+
+                carrito.forEach(c => {
+                    let tr = document.createElement('tr');
+
+                    tr.innerHTML = `
+                        <td>${c.codigo}</td>
+                        <td>${c.nombre}</td>
+                        <td>${c.cantidad}</td>
+                        <td>${c.precio}</td>
+                        <td>${c.total * c.cantidad}</td>
+                    `;
+
+                    tablaCarrito.appendChild(tr);
+                });
+
+            } else { 
+                console.log('Codigo encontrado') 
+                carrito.forEach(c => {
+                    if (codigo === p.codigo) {
+                        let tr = document.createElement('tr');
+
+                        tr.innerHTML = `
+                            <td>${c.codigo}</td>
+                            <td>${c.nombre}</td>
+                            <td>${c.cantidad}</td>
+                            <td>${c.precio}</td>
+                            <td>${c.total * c.cantidad++}</td>
+                        `;
+
+                        tablaCarrito.appendChild(tr);
+                    }
+                });
+            };
+        };       
+    });
+
+    
+
+    console.log(carrito);
+}
+
+
+
+
+
+
+
+
+
+const agregarProducto = (codigo) => {   
+
+    productos.forEach(p => {
+        if (codigo === p.codigo) {
+
+            const venta = {
+                codigo: p.codigo,
+                nombre: p.nombre,
+                cantidad: 1,
+                precio: p.precio,
+                total: p.precio
+            };
+            
+            const findcode = carrito.find(f => f.codigo === codigo);
+
+            if (!findcode) {
+                console.log(`Codigo ${codigo} NO encontrado`);
+                carrito.push(venta); 
+                tablaCarrito.innerHTML += '';
+
+            } else { 
+                console.log('Codigo encontrado') 
+                tablaCarrito.innerHTML = '';
+
+            };
+        };       
+    });
+
+    carrito.forEach(c => {
+        if (codigo === c.codigo) {
+            let tr = document.createElement('tr');
+
+            tr.innerHTML = `
+                <td>${c.codigo}</td>
+                <td>${c.nombre}</td>
+                <td>${c.cantidad}</td>
+                <td>${c.precio}</td>
+                <td>${c.total * c.cantidad++}</td>
+            `;
+                
+            tablaCarrito.appendChild(tr);
+        };
+    });
+
+    console.log(carrito);
+}
+
+
+
+
+
+
+
+
+
+const agregarProducto = (codigo) => {   
+
+    productos.forEach(p => {
+        if (codigo === p.codigo) {
+
+            const venta = {
+                codigo: p.codigo,
+                nombre: p.nombre,
+                cantidad: 1,
+                precio: p.precio,
+                total: p.precio
+            };
+            
+            const fcode = carrito.find(f => f.codigo === codigo);
+
+            if (!fcode) {
+                console.log(`Codigo ${codigo} NO encontrado`);
+                carrito.push(venta); 
+
+                carrito.forEach(c => {
+                    if (codigo === c.codigo) {
+                        let tr = document.createElement('tr');         
+                        tr.innerHTML = `
+                            <td>${c.codigo}</td>
+                            <td>${c.nombre}</td>
+                            <td>${c.cantidad}</td>
+                            <td>${c.precio}</td>
+                            <td>${c.total}</td>
+                        `;                        
+                        tablaCarrito.appendChild(tr);                       
+                    };
+                });
+
+            } else { 
+                console.log('Codigo encontrado');
+                carrito.forEach(c => {
+                    if (c.codigo === codigo) {
+                        c.cantidad++;
+                        c.total = c.precio * c.cantidad;
+                    };
+                });
+            };
+
+            
+        };       
+    });
+
+    console.log(carrito);
+}
