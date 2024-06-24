@@ -28,6 +28,17 @@ const tablaProductos = document.querySelector('#productos');
 const tablaCarrito = document.getElementById('carrito');
 const totalVenta = document.getElementById('total');
 
+const DataTable = (element, x) => {
+    element.innerHTML = `
+        <td>${x.codigo}</td>
+        <td>${x.nombre}</td>
+        <td>${x.cantidad}</td>
+        <td>${x.precio}</td>
+        <td>${x.total}</td>
+    `; 
+    return element;
+};
+
 const agregarProducto = (codigo) => {   
 
     productos.forEach(p => {
@@ -50,45 +61,37 @@ const agregarProducto = (codigo) => {
                 carrito.push(venta);  
 
                 carrito.forEach(c => {
-                    if (codigo === c.codigo) {        
-                        tr.innerHTML = `
-                            <td>${c.codigo}</td>
-                            <td>${c.nombre}</td>
-                            <td>${c.cantidad}</td>
-                            <td>${c.precio}</td>
-                            <td>${c.total}</td>
-                        `;                                              
+                    if (codigo === c.codigo) {   
+                        DataTable(tr, c);
+                        p.cantidad -= 1;
                     };
                 });
 
             } else { 
                 console.log('Codigo encontrado');
 
-                carrito.forEach(c => {
-                    if (c.codigo === codigo) {
-                        const data = document.getElementById(c.codigo);
-                        data.innerHTML = '';
-                        console.log(data);
-
-                        c.cantidad++;
-                        c.total = c.precio * c.cantidad; 
-
-                        data.innerHTML = `
-                            <td>${c.codigo}</td>
-                            <td>${c.nombre}</td>
-                            <td>${c.cantidad}</td>
-                            <td>${c.precio}</td>
-                            <td>${c.total}</td>
-                        `;
-                    };
-                });
+                if (p.cantidad > 0) {
+                    carrito.forEach(c => {
+                        if (c.codigo === codigo) {
+                            const data = document.getElementById(c.codigo);
+                            data.innerHTML = '';
+                            console.log(data);
+    
+                            c.cantidad++;
+                            c.total = c.precio * c.cantidad; 
+    
+                            DataTable(data, c);
+                            p.cantidad -= 1; 
+                        };
+                    });
+                };
             };
-            tablaCarrito.appendChild(tr);           
+            tablaCarrito.appendChild(tr);  
+            console.log(productos);         
         };       
     });
     console.log(carrito);
 }
-
 
 const quitarProducto = (codigo) => {
     
@@ -100,6 +103,8 @@ const cargarProductos = () => {
 
     productos.forEach(p => {
         let tr = document.createElement('tr');
+        tr.setAttribute('id', `c${p.codigo}`);
+
         let fila = `<td>
                         ${p.codigo}
                     </td>
