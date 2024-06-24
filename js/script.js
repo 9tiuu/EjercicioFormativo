@@ -107,7 +107,8 @@ const quitarProducto = (codigo) => {
                 if (codigo === p.codigo) {
                     const data = document.getElementById(c.codigo);    
                                    
-                    if (c.cantidad > 0) {                    
+                    if (c.cantidad > 0) { 
+                        data.innerHTML = '';                   
                         p.cantidad += 1, c.cantidad -= 1
                         c.total = c.precio * c.cantidad;
 
@@ -117,8 +118,10 @@ const quitarProducto = (codigo) => {
                         tablaProductos.innerHTML = '';
                         cargarProductos();
                         
-                    } else {
-                        data.innerHTML = '';
+                        if (c.cantidad === 0) {
+                            data.innerHTML = '';
+                        }
+                        
                     };
                 };
             });
