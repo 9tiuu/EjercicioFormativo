@@ -27,15 +27,15 @@ const productos = [p1, p2, p3, p4];
 const tablaProductos = document.querySelector('#productos');
 const tablaCarrito = document.getElementById('carrito');
 const totalVenta = document.getElementById('total');
-let sumaTotal = [];
+let sumaTotal = 0;
 
 const DataTable = (element, x) => {
     element.innerHTML = `
         <td>${x.codigo}</td>
         <td>${x.nombre}</td>
         <td>${x.cantidad}</td>
-        <td>${x.precio}</td>
-        <td>${x.total}</td>
+        <td>$${x.precio}</td>
+        <td>$${x.total}</td>
     `; 
     return element;
 };
@@ -66,6 +66,9 @@ const agregarProducto = (codigo) => {
                         DataTable(tr, c);
                         p.cantidad -= 1;
 
+                        sumaTotal += c.total;
+                        totalVenta.innerHTML = '$' + sumaTotal;
+
                         tablaProductos.innerHTML = '';
                         cargarProductos();
                     };
@@ -82,7 +85,10 @@ const agregarProducto = (codigo) => {
                             console.log(data);
     
                             c.cantidad++;
-                            c.total = c.precio * c.cantidad; 
+                            c.total = c.precio * c.cantidad;
+
+                            sumaTotal += c.precio;
+                            totalVenta.innerHTML = '$' + sumaTotal;
     
                             DataTable(data, c);
                             p.cantidad -= 1; 
@@ -94,7 +100,8 @@ const agregarProducto = (codigo) => {
                 };
             };
             tablaCarrito.appendChild(tr);  
-            console.log(productos);         
+            console.log(productos); 
+            console.log(sumaTotal);         
         };       
     });
     console.log(carrito);
@@ -111,6 +118,9 @@ const quitarProducto = (codigo) => {
                         data.innerHTML = '';                   
                         p.cantidad += 1, c.cantidad -= 1
                         c.total = c.precio * c.cantidad;
+
+                        sumaTotal -= c.precio;
+                        totalVenta.innerHTML = '$' + sumaTotal;
 
                         data.innerHTML = '';
                         DataTable(data, c);
