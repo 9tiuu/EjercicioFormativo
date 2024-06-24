@@ -27,6 +27,7 @@ const productos = [p1, p2, p3, p4];
 const tablaProductos = document.querySelector('#productos');
 const tablaCarrito = document.getElementById('carrito');
 const totalVenta = document.getElementById('total');
+let sumaTotal = [];
 
 const DataTable = (element, x) => {
     element.innerHTML = `
@@ -100,7 +101,29 @@ const agregarProducto = (codigo) => {
 }
 
 const quitarProducto = (codigo) => {
-    
+    carrito.forEach(c => {
+        if (codigo === c.codigo) {
+            productos.forEach(p => {
+                if (codigo === p.codigo) {
+                    const data = document.getElementById(c.codigo);    
+                                   
+                    if (c.cantidad > 0) {                    
+                        p.cantidad += 1, c.cantidad -= 1
+                        c.total = c.precio * c.cantidad;
+
+                        data.innerHTML = '';
+                        DataTable(data, c);
+
+                        tablaProductos.innerHTML = '';
+                        cargarProductos();
+                        
+                    } else {
+                        data.innerHTML = '';
+                    };
+                };
+            });
+        };
+    });
 }
 
 const cargarProductos = () => {
