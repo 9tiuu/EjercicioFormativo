@@ -64,6 +64,9 @@ const agregarProducto = (codigo) => {
                     if (codigo === c.codigo) {   
                         DataTable(tr, c);
                         p.cantidad -= 1;
+
+                        tablaProductos.innerHTML = '';
+                        cargarProductos();
                     };
                 });
 
@@ -82,6 +85,9 @@ const agregarProducto = (codigo) => {
     
                             DataTable(data, c);
                             p.cantidad -= 1; 
+
+                            tablaProductos.innerHTML = '';
+                            cargarProductos();
                         };
                     });
                 };
@@ -103,7 +109,6 @@ const cargarProductos = () => {
 
     productos.forEach(p => {
         let tr = document.createElement('tr');
-        tr.setAttribute('id', `c${p.codigo}`);
 
         let fila = `<td>
                         ${p.codigo}
